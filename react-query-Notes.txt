@@ -1,0 +1,19 @@
+///***React-Query***///
+
+https://react-query-v3.tanstack.com/overview
+
+1- yarn add react-query  --> react-query Kur.
+2- import { QueryClient, QueryClientProvider } from 'react-query'  --> app.js'e ekle.
+3- const queryClient = new QueryClient();  --> app.js'e ekle.
+4- <QueryClientProvider client={queryClient}><AppRouter /></QueryClientProvider> --> app.js'e sarmalama işlemini yap.
+5- Sonrasında veri kaynagına gidip veri çakmek yeterli.
+6- import { useQuery } from "react-query";
+  const { isLoading, error, data } = useQuery("repoData", () =>
+    fetch("https://rickandmortyapi.com/api/character").then((res) => res.json())
+  );
+
+  if (isLoading) return "Loading...";
+
+  if (error) return "An error has occurred: " + error.message; --> veri çekeceğimiz dosyaya ekliyoruz.
+
+7- yarn add moment --> Tarih saat formatlamak için. 
