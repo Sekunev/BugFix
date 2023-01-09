@@ -8,6 +8,7 @@ import {
   CardRightButtomRight,
   ShareIcon,
 } from "./Character.style";
+import moment from "moment/moment";
 
 const Characters = ({ character }) => {
   const { name, image, created } = character;
@@ -15,7 +16,7 @@ const Characters = ({ character }) => {
   return (
     <CardBody>
       <div>
-        <img src={image} alt="" />
+        <img src={image} alt="" loading="lazy" />
       </div>
       <CardRight>
         <div>
@@ -26,7 +27,12 @@ const Characters = ({ character }) => {
           </p>
         </div>
         <CardRightButtom>
-          <span>{created}</span>
+          <span>
+            {moment(
+              moment(created).format("DD/MM/YYYY"),
+              "YYYY.MM.DD"
+            ).fromNow()}
+          </span>
           <CardRightButtomRight>
             <ShareIcon>
               <FontAwesomeIcon icon={faArrowUpFromBracket} />

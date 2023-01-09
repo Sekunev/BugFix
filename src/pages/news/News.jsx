@@ -1,8 +1,8 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Characters from "./Characters";
 import { Content, NewsContent, NavTitle, NewsUpper, Title } from "./News.style";
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
+import { getData } from "../../companents/fetchData";
 
 const News = () => {
   // const [characters, setCharacters] = useState([]);
@@ -22,16 +22,18 @@ const News = () => {
   //   getData();
   // }, []);
 
-  const { isLoading, error, data } = useQuery("repoData", () =>
-    fetch("https://rickandmortyapi.com/api/character").then((res) => res.json())
-  );
+  const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
+    useInfiniteQuery("news", getData, {
+      getNextPageParam: (_lastPage, allPages) => {
+        if (allPages.length < 3) {
+          return allPages.length + 1;
+        } else {
+          return undefined;
+        }
+      },
+    });
 
-  if (isLoading) return "Loading...";
-
-  if (error) return "An error has occurred: " + error.message;
-
-  console.log("data :>> ", data.results);
-
+  console.log("data :>> ", data);
   return (
     <NewsContent>
       <NavTitle>
@@ -42,11 +44,29 @@ const News = () => {
         </Content>
       </NavTitle>
       <NewsUpper>
-        {data.results.length > 0 &&
-          data.results?.map((character) => {
-            return <Characters key={character.id} character={character} />;
-          })}
+        {data?.pages.length > 0 &&
+          data.pages?.map((group, i) => (
+            <React.Fragment key={i}>
+              {group.results.length > 0 &&
+                group.results?.map((character) => (
+                  <Characters key={character.id} character={character} />
+                ))}
+            </React.Fragment>
+          ))}
       </NewsUpper>
+      <div>
+        <button
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? "Loading more..."
+            : hasNextPage
+            ? "Daha Fazla"
+            : "Nothing more to load"}
+        </button>
+      </div>
+      <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
     </NewsContent>
   );
 };
