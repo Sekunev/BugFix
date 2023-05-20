@@ -6,6 +6,8 @@ import {
   CardRight,
   CardRightButtom,
   CardRightButtomRight,
+  Image,
+  ImageContent,
   ShareIcon,
 } from "./Character.style";
 import moment from "moment/moment";
@@ -15,9 +17,9 @@ const Characters = ({ character }) => {
 
   return (
     <CardBody>
-      <div>
-        <img src={image} alt="" loading="lazy" />
-      </div>
+      <Image>
+        <ImageContent src={image} alt="" loading="lazy" />
+      </Image>
       <CardRight>
         <div>
           <h2>{name}</h2>

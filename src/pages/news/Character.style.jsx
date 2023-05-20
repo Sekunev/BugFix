@@ -1,11 +1,24 @@
 import styled from "styled-components";
 
 export const CardBody = styled.div`
-  border: 2px solid black;
+  border: 5px solid #da9f52;
   display: flex;
   gap: 1.5rem;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 0.5rem;
+  background-color: #d8d8b0;
+  width: 340px;
+  height: 250px;
+  align-items: center;
+`;
+export const Image = styled.div`
+  /* align-items: center; */
+`;
+
+export const ImageContent = styled.img`
+  border: 3px solid #926a36;
+  border-radius: 50%;
+  width: 150px;
 `;
 export const CardRight = styled.div`
   display: flex;

@@ -22,7 +22,8 @@ export const NewsUpper = styled.div`
   margin: 2rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  /* align-items: center; */
+  /* flex-direction: column; */
   gap: 1rem;
+  flex-wrap: wrap;
 `;
